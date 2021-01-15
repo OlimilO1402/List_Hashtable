@@ -19,10 +19,14 @@ HelpContextID="0"
 CompatibleMode="0"
 MajorVer=1
 MinorVer=0
-RevisionVer=0
-AutoIncrementVer=0
+RevisionVer=1
+AutoIncrementVer=1
 ServerSupportFiles=0
-CondComp="IsNative = 0"
+VersionCompanyName="MBO-Ing.com"
+VersionFileDescription="HashTable class"
+VersionLegalCopyright="MBO-Ing.com"
+VersionProductName="List HashTable"
+CondComp="IsNative = 1"
 CompilationType=0
 OptimizationType=0
 FavorPentiumPro(tm)=0
