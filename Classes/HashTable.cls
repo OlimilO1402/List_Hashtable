@@ -64,7 +64,7 @@ Public Sub Clear()
 End Sub
 Private Function InitHash(ByVal Key As String, ByVal hashsize As Long, ByRef seed As Long, ByRef incr As Long) As Long
     'Dim num As Long: num = (Me.GetHash(key) And &H7FFFFFFF)
-    InitHash = (MString.GetHashCode(Key) And &H7FFFFFFF)
+    InitHash = (MChars.GetHashCode(Key) And &H7FFFFFFF)
     seed = InitHash 'num
     incr = (1 + ((((seed And &HFFFFFFE0) \ &H20&) + 1) Mod (hashsize - 1)))
     'InitHash = num
@@ -246,10 +246,10 @@ Public Function ContainsKey(Key As String) As Boolean
 End Function
 Public Function ContainsValue(Value As String) As Boolean
     If LenB(Value) = 0 Then
-        Dim length As Long: length = UBound(m_buckets) + 1
-        Do While length >= 0
-            length = length - 1
-            If (((Not (LenB(m_buckets(length).Key) = 0)) And (Not (LenB(m_buckets(length).val) = 0)))) Then 'And (Not m_buckets(length).key Is Me.buckets))
+        Dim Length As Long: Length = UBound(m_buckets) + 1
+        Do While Length >= 0
+            Length = Length - 1
+            If (((Not (LenB(m_buckets(Length).Key) = 0)) And (Not (LenB(m_buckets(Length).val) = 0)))) Then 'And (Not m_buckets(length).key Is Me.buckets))
                 ContainsValue = True
                 Exit Function
             End If

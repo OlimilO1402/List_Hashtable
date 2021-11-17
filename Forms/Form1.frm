@@ -167,7 +167,7 @@ Private Sub Form_Load()
     Set m_HT = New HashTable
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
-    Call MString.DeleteStringPointers
+    Call MChars.DeleteStringPointers
 End Sub
 Private Sub Form_Resize()
     Dim l As Single, T As Single, W As Single, h As Single

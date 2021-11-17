@@ -1,4 +1,4 @@
-Attribute VB_Name = "MSubMain"
+Attribute VB_Name = "MMain"
 Option Explicit
 
 Public Sub Main()

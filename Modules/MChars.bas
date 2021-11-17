@@ -1,4 +1,4 @@
-Attribute VB_Name = "MString"
+Attribute VB_Name = "MChars"
 Option Explicit
 Public Type TCharPointer
     pudt    As TUDTPtr
@@ -150,37 +150,37 @@ Public Function UAddC(ByVal a As Long, ByVal b As Long) As Long
     ac.c = ac.c + bc.c
     LSet ll = ac: UAddC = ll.Hi
 End Function
-
-Public Function PadLeft(this As String, _
-                        ByVal totalWidth As Long, _
-                        Optional ByVal paddingChar As String) As String
-    If LenB(paddingChar) Then
-        If Len(this) < totalWidth Then
-            PadLeft = String$(totalWidth, paddingChar)
-            MidB$(PadLeft, totalWidth * 2 - LenB(this) + 1) = this
-        Else
-            PadLeft = this
-        End If
-    Else
-        PadLeft = Space$(totalWidth)
-        RSet PadLeft = this
-    End If
-End Function
-Public Function PadRight(this As String, _
-                         ByVal totalWidth As Long, _
-                         Optional ByVal paddingChar As String) As String
-    If LenB(paddingChar) Then
-        If Len(this) < totalWidth Then
-            PadRight = String$(totalWidth, paddingChar)
-            MidB$(PadRight, 1) = this
-        Else
-            PadRight = this
-        End If
-    Else
-        PadRight = Space$(totalWidth)
-        LSet PadRight = this
-    End If
-End Function
-
-
+'
+'Public Function PadLeft(this As String, _
+'                        ByVal totalWidth As Long, _
+'                        Optional ByVal paddingChar As String) As String
+'    If LenB(paddingChar) Then
+'        If Len(this) < totalWidth Then
+'            PadLeft = String$(totalWidth, paddingChar)
+'            MidB$(PadLeft, totalWidth * 2 - LenB(this) + 1) = this
+'        Else
+'            PadLeft = this
+'        End If
+'    Else
+'        PadLeft = Space$(totalWidth)
+'        RSet PadLeft = this
+'    End If
+'End Function
+'Public Function PadRight(this As String, _
+'                         ByVal totalWidth As Long, _
+'                         Optional ByVal paddingChar As String) As String
+'    If LenB(paddingChar) Then
+'        If Len(this) < totalWidth Then
+'            PadRight = String$(totalWidth, paddingChar)
+'            MidB$(PadRight, 1) = this
+'        Else
+'            PadRight = this
+'        End If
+'    Else
+'        PadRight = Space$(totalWidth)
+'        LSet PadRight = this
+'    End If
+'End Function
+'
+'
 
