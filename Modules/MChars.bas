@@ -1,9 +1,11 @@
 Attribute VB_Name = "MChars"
 Option Explicit
+
 Public Type TCharPointer
     pudt    As TUDTPtr
     Chars() As Integer
 End Type
+
 Public Type TLongPointer
     pudt     As TUDTPtr
     Values() As Long
@@ -11,9 +13,11 @@ End Type
 
 Private str  As TCharPointer
 Private strL As TLongPointer
+
 Public Type TCur
     c As Currency
 End Type
+
 Public Type TLngHiLo
     Hi As Long
     Lo As Long
@@ -23,10 +27,12 @@ Public Sub InitMString()
     Call New_CharPointer(str, "")
     Call New_LongPointer(strL, 0) 'wird nur für GetHashCode gebraucht
 End Sub
+
 Public Sub DeleteStringPointers()
-    Call DeleteCharPointer(str)
-    Call DeleteLongPointer(strL)
+    Call CharPointer_Delete(str)
+    Call LongPointer_Delete(strL)
 End Sub
+
 Public Sub New_CharPointer(ByRef this As TCharPointer, ByRef StrVal As String)
     With this
         Call New_UDTPtr(.pudt, FADF_AUTO Or FADF_FIXEDSIZE, 2, Len(StrVal), 1)
@@ -36,11 +42,13 @@ Public Sub New_CharPointer(ByRef this As TCharPointer, ByRef StrVal As String)
         Call RtlMoveMemory(ByVal ArrPtr(.Chars), ByVal VarPtr(.pudt), 4)
     End With
 End Sub
-Public Sub DeleteCharPointer(ByRef this As TCharPointer)
+
+Public Sub CharPointer_Delete(ByRef this As TCharPointer)
     With this
         Call RtlZeroMemory(ByVal ArrPtr(.Chars), 4)
     End With
 End Sub
+
 Public Sub New_LongPointer(ByRef this As TLongPointer, ByVal pLong As Long)
     With this
         Call New_UDTPtr(.pudt, FADF_AUTO Or FADF_FIXEDSIZE, 4)
@@ -50,12 +58,11 @@ Public Sub New_LongPointer(ByRef this As TLongPointer, ByVal pLong As Long)
         Call RtlMoveMemory(ByVal ArrPtr(.Values), ByVal VarPtr(.pudt), 4)
     End With
 End Sub
-Public Sub DeleteLongPointer(ByRef this As TLongPointer)
+Public Sub LongPointer_Delete(ByRef this As TLongPointer)
     With this
         Call RtlZeroMemory(ByVal ArrPtr(.Values), 4)
     End With
 End Sub
-
 
 Private Function InitStrPtr(this As String)
     With str.pudt
@@ -69,7 +76,7 @@ Public Function GetHashCode(this As String) As Long
     'funzt nur mit:
     'Projekt -> Eigenschaften -> Kompilieren -> Weitere Optimierungen -> keine Überprüfung auf Ganzzahlüberlauf
     'und dann auch nur kompiliert!
-    Call MUDTPtr.AssignUDTPtr(strL.pudt, str.pudt)
+    MPtr.UDTPtr_Assign strL.pudt, str.pudt
     Dim num1 As Long: num1 = &H15051505
     Dim num2 As Long: num2 = num1
     Dim numPtr As Long
@@ -126,6 +133,7 @@ Public Function GetHashCode(this As String) As Long
     #End If
     
 End Function
+
 'die Funktionen Multiplikation und Addition IDE-safe machen:
 'eine vergleichbare Funktion mit RtlMoveMemory wäre hier
 '_nicht_ schneller sondern ca 20-30% langsamer

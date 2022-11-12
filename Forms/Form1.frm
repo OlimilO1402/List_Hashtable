@@ -1,6 +1,6 @@
 VERSION 5.00
-Begin VB.Form Form1 
-   Caption         =   "Form1"
+Begin VB.Form FMain 
+   Caption         =   "Hashtable"
    ClientHeight    =   7425
    ClientLeft      =   60
    ClientTop       =   450
@@ -12,6 +12,15 @@ Begin VB.Form Form1
    StartUpPosition =   3  'Windows-Standard
    Begin VB.CommandButton Command2 
       Caption         =   "Fill collection"
+      BeginProperty Font 
+         Name            =   "Tahoma"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   375
       Left            =   3960
       TabIndex        =   7
@@ -19,6 +28,15 @@ Begin VB.Form Form1
       Width           =   1455
    End
    Begin VB.TextBox Text1 
+      BeginProperty Font 
+         Name            =   "Tahoma"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   285
       Left            =   2160
       TabIndex        =   2
@@ -27,7 +45,7 @@ Begin VB.Form Form1
    End
    Begin VB.ListBox List1 
       BeginProperty Font 
-         Name            =   "Courier New"
+         Name            =   "Consolas"
          Size            =   9.75
          Charset         =   0
          Weight          =   400
@@ -35,7 +53,7 @@ Begin VB.Form Form1
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   6060
+      Height          =   5910
       Left            =   0
       TabIndex        =   1
       Top             =   1200
@@ -43,6 +61,15 @@ Begin VB.Form Form1
    End
    Begin VB.CommandButton Command1 
       Caption         =   "Fill hashtable"
+      BeginProperty Font 
+         Name            =   "Tahoma"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   375
       Left            =   120
       TabIndex        =   0
@@ -51,6 +78,15 @@ Begin VB.Form Form1
    End
    Begin VB.Label Label4 
       Caption         =   "Label4"
+      BeginProperty Font 
+         Name            =   "Tahoma"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   255
       Left            =   120
       TabIndex        =   6
@@ -58,6 +94,15 @@ Begin VB.Form Form1
       Width           =   2415
    End
    Begin VB.Label Label3 
+      BeginProperty Font 
+         Name            =   "Tahoma"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   255
       Left            =   2640
       TabIndex        =   5
@@ -65,6 +110,15 @@ Begin VB.Form Form1
       Width           =   2895
    End
    Begin VB.Label Label2 
+      BeginProperty Font 
+         Name            =   "Tahoma"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   255
       Left            =   120
       TabIndex        =   4
@@ -73,6 +127,15 @@ Begin VB.Form Form1
    End
    Begin VB.Label Label1 
       Caption         =   "n:"
+      BeginProperty Font 
+         Name            =   "Tahoma"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   255
       Left            =   1800
       TabIndex        =   3
@@ -80,7 +143,7 @@ Begin VB.Form Form1
       Width           =   375
    End
 End
-Attribute VB_Name = "Form1"
+Attribute VB_Name = "FMain"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
@@ -163,8 +226,10 @@ Public Sub CollectionToListBox(aCol As Collection, aLB As ListBox)
 End Sub
 
 Private Sub Form_Load()
+    Me.Caption = Me.Caption & " v" & App.Major & "." & App.Minor & "." & App.Revision
     Set m_SW = New StopWatch
     Set m_HT = New HashTable
+    
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
     Call MChars.DeleteStringPointers

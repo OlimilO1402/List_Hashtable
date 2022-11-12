@@ -4,5 +4,5 @@ Option Explicit
 Public Sub Main()
     Call InitMString
     Call InitPrime
-    Form1.Show
+    FMain.Show
 End Sub
