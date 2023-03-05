@@ -3,7 +3,7 @@
   
 [![GitHub](https://img.shields.io/github/license/OlimilO1402/List_Hashtable?style=plastic)](https://github.com/OlimilO1402/List_Hashtable/blob/master/LICENSE) 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/OlimilO1402/List_Hashtable?style=plastic)](https://github.com/OlimilO1402/List_Hashtable/releases/latest)
-[![Github All Releases](https://img.shields.io/github/downloads/OlimilO1402/List_Hashtable/total.svg)](https://github.com/OlimilO1402/List_Hashtable/releases/download/v2023.3.5/List_Hashtable_v2023.3.5.zip)
+[![Github All Releases](https://img.shields.io/github/downloads/OlimilO1402/List_Hashtable/total.svg)](https://github.com/OlimilO1402/List_Hashtable/releases/download/v2023.3.5/ListHashtable_v2023.3.5.zip)
 ![GitHub followers](https://img.shields.io/github/followers/OlimilO1402?style=social)
 
 The class mscorlib.System.Collections.HashTable translated for VB6. Project started in june 2008.  
