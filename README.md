@@ -7,6 +7,7 @@ This HashTable-class is case sensitiv, so "a" and "A" will be treated as differe
 This class is more on the edcuational side, and shows 
 * what we can do with the UDTPtr- and CharPointer-methods  
 * how the hashing-functions work in .net  
+  
 Hint: If you want to run this in your VB-IDE go to project options and set: IsNative = 0
 
 ![ListHashtable Image](Resources/ListHashtable.png "ListHashtable Image")
