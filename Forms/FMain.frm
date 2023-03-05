@@ -5,7 +5,7 @@ Begin VB.Form FMain
    ClientLeft      =   60
    ClientTop       =   450
    ClientWidth     =   5940
-   Icon            =   "Form1.frx":0000
+   Icon            =   "FMain.frx":0000
    LinkTopic       =   "Form1"
    ScaleHeight     =   7425
    ScaleWidth      =   5940
@@ -149,10 +149,27 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Private m_HT As HashTable
-Private m_SW As StopWatch
-
+Private m_HT  As HashTable
+Private m_SW  As StopWatch
 Private m_Col As Collection
+
+Private Sub Form_Load()
+    Me.Caption = Me.Caption & " v" & App.Major & "." & App.Minor & "." & App.Revision
+    Set m_SW = New StopWatch
+    Set m_HT = New HashTable
+End Sub
+
+Private Sub Form_Unload(Cancel As Integer)
+    Call MChars.DeleteStringPointers
+End Sub
+
+Private Sub Form_Resize()
+    Dim l As Single, T As Single, W As Single, h As Single
+    l = List1.Left: T = List1.Top
+    W = Me.ScaleWidth - l: h = Me.ScaleHeight - T
+    If W > 0 And h > 0 Then Call List1.Move(l, T, W, h)
+End Sub
+
 
 Private Sub Command2_Click()
     'wieviel Speicher belegt dagegen eine Collection?
@@ -223,22 +240,6 @@ Public Sub CollectionToListBox(aCol As Collection, aLB As ListBox)
         Call aLB.AddItem(s)
         i = i + 1
     Next
-End Sub
-
-Private Sub Form_Load()
-    Me.Caption = Me.Caption & " v" & App.Major & "." & App.Minor & "." & App.Revision
-    Set m_SW = New StopWatch
-    Set m_HT = New HashTable
-    
-End Sub
-Private Sub Form_Unload(Cancel As Integer)
-    Call MChars.DeleteStringPointers
-End Sub
-Private Sub Form_Resize()
-    Dim l As Single, T As Single, W As Single, h As Single
-    l = List1.Left: T = List1.Top
-    W = Me.ScaleWidth - l: h = Me.ScaleHeight - T
-    If W > 0 And h > 0 Then Call List1.Move(l, T, W, h)
 End Sub
 
 

@@ -8,11 +8,8 @@ End Type
 
 Public Type TLongPointer
     pudt     As TUDTPtr
-    Values() As Long
+    Values() As Long 'Ptr
 End Type
-
-Private str  As TCharPointer
-Private strL As TLongPointer
 
 Public Type TCur
     c As Currency
@@ -23,9 +20,12 @@ Public Type TLngHiLo
     Lo As Long
 End Type
 
-Public Sub InitMString()
+Private str  As TCharPointer
+Private strL As TLongPointer
+
+Public Sub InitPointers()
     Call New_CharPointer(str, "")
-    Call New_LongPointer(strL, 0) 'wird nur für GetHashCode gebraucht
+    Call New_LongPointer(strL, 0) 'will be used by GetHashCode only
 End Sub
 
 Public Sub DeleteStringPointers()
@@ -35,33 +35,29 @@ End Sub
 
 Public Sub New_CharPointer(ByRef this As TCharPointer, ByRef StrVal As String)
     With this
-        Call New_UDTPtr(.pudt, FADF_AUTO Or FADF_FIXEDSIZE, 2, Len(StrVal), 1)
+        New_UDTPtr .pudt, FADF_AUTO Or FADF_FIXEDSIZE, 2, Len(StrVal), 1
         With .pudt
             .pvData = StrPtr(StrVal)
         End With
-        Call RtlMoveMemory(ByVal ArrPtr(.Chars), ByVal VarPtr(.pudt), 4)
+        RtlMoveMemory ByVal ArrPtr(.Chars), ByVal VarPtr(.pudt), MPtr.SizeOf_LongPtr
     End With
 End Sub
 
 Public Sub CharPointer_Delete(ByRef this As TCharPointer)
-    With this
-        Call RtlZeroMemory(ByVal ArrPtr(.Chars), 4)
-    End With
+    RtlZeroMemory ByVal ArrPtr(this.Chars), MPtr.SizeOf_LongPtr
 End Sub
 
-Public Sub New_LongPointer(ByRef this As TLongPointer, ByVal pLong As Long)
+Public Sub New_LongPointer(ByRef this As TLongPointer, ByVal pLong As LongPtr)
     With this
-        Call New_UDTPtr(.pudt, FADF_AUTO Or FADF_FIXEDSIZE, 4)
+        New_UDTPtr .pudt, FADF_AUTO Or FADF_FIXEDSIZE, MPtr.SizeOf_LongPtr
         With .pudt
             .pvData = pLong
         End With
-        Call RtlMoveMemory(ByVal ArrPtr(.Values), ByVal VarPtr(.pudt), 4)
+        RtlMoveMemory ByVal ArrPtr(.Values), ByVal VarPtr(.pudt), MPtr.SizeOf_LongPtr
     End With
 End Sub
 Public Sub LongPointer_Delete(ByRef this As TLongPointer)
-    With this
-        Call RtlZeroMemory(ByVal ArrPtr(.Values), 4)
-    End With
+    RtlZeroMemory ByVal ArrPtr(this.Values), MPtr.SizeOf_LongPtr
 End Sub
 
 Private Function InitStrPtr(this As String)
@@ -73,9 +69,10 @@ End Function
 
 Public Function GetHashCode(this As String) As Long
     Call InitStrPtr(this)
-    'funzt nur mit:
-    'Projekt -> Eigenschaften -> Kompilieren -> Weitere Optimierungen -> keine Überprüfung auf Ganzzahlüberlauf
-    'und dann auch nur kompiliert!
+    'works only with:
+    'de: Projekt -> Eigenschaften -> Kompilieren -> Weitere Optimierungen -> keine Überprüfung auf Ganzzahlüberlauf
+    'en: Project -> Properties    -> Compile     -> More Optimizations    -> No Integer Overflow Check
+    'and only PE-exe compiled!
     MPtr.UDTPtr_Assign strL.pudt, str.pudt
     Dim num1 As Long: num1 = &H15051505
     Dim num2 As Long: num2 = num1
@@ -134,10 +131,9 @@ Public Function GetHashCode(this As String) As Long
     
 End Function
 
-'die Funktionen Multiplikation und Addition IDE-safe machen:
-'eine vergleichbare Funktion mit RtlMoveMemory wäre hier
-'_nicht_ schneller sondern ca 20-30% langsamer
-'mit GetMem4/PutMem4 dagegen nochmal 10-20% schneller
+'when running in IDE we have to make Multiplikation and Addition IDE-safe
+'a comparable function using RtlMoveMemory here would be _not_ faster but about 20-30% slower
+'using GetMem4/PutMem4 on the other hand it would be marginal about 10-20% faster
 Public Function MulOFlow(ByVal a As Long, ByVal b As Long) As Long
     'führt eine überlaufsichere unsigned Multiplikation mit zwei signed Int32 durch
     'Gibt die unteren 4-Byte eines Int64 bei einer Multiplitkation zurück,
